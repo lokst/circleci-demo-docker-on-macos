@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    macos:
+      xcode: "9.4.0"
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: |
+            brew install docker docker-machine docker-machine-driver-xhyve
+      - run:
+          name: Setup docker
+          command: |
+            set -x
+            # docker-machine-driver-xhyve needs root owner and uid
+            sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+            sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+            docker-machine create --driver xhyve default
+            eval "$(docker-machine env default)"
+      - run:
+          name: Test docker environment setup by running some test commands
+          command: |
+            docker-machine start default
+            eval "$(docker-machine env default)"
+            docker run appropriate/curl --retry 10 --retry-connrefused https://www.circleci.com
+workflows:
+  version: 2
+  build-workflow:
+    jobs:
+      - build
