@@ -13,10 +13,12 @@ jobs:
           name: Setup docker
           command: |
             set -x
+            # boot2docker v18.09.0 results in errors
+            STABLE_BOOT2DOCKER_URL="https://github.com/boot2docker/boot2docker/releases/download/v18.06.1-ce/boot2docker.iso"
             # docker-machine-driver-xhyve needs root owner and uid
             sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
             sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-            docker-machine create --debug --driver xhyve default
+            docker-machine create --debug --driver xhyve --virtualbox-boot2docker-url=$STABLE_BOOT2DOCKER_URL default
             eval "$(docker-machine env default)"
       - run:
           name: Test docker environment setup by running some test commands
