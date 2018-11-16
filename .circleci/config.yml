@@ -18,7 +18,7 @@ jobs:
             # docker-machine-driver-xhyve needs root owner and uid
             sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
             sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-            docker-machine --debug create --driver xhyve --virtualbox-boot2docker-url $STABLE_BOOT2DOCKER_URL default
+            docker-machine --debug create --driver xhyve --xhyve-boot2docker-url $STABLE_BOOT2DOCKER_URL default
             eval "$(docker-machine env default)"
       - run:
           name: Test docker environment setup by running some test commands
