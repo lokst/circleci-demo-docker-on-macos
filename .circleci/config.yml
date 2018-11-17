@@ -13,7 +13,7 @@ jobs:
             # Install docker-machine v0.15.0
             brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/b99152543bfac3cb658011676b1d58a96d26ea59/Formula/docker-machine.rb
             # Install docker-machine-driver-xhyve v0.3.3
-            brew install https://github.com/Homebrew/homebrew-core/blob/ac2de0daf1f3a644cc94c470d4c9cb06edc7fc53/Formula/docker-machine-driver-xhyve.rb
+            brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/ac2de0daf1f3a644cc94c470d4c9cb06edc7fc53/Formula/docker-machine-driver-xhyve.rb
       - run:
           name: Setup docker
           command: |
